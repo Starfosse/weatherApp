@@ -1,0 +1,60 @@
+body
+{
+    background-color:rgb(43, 43, 116);
+}
+
+#searchBar
+{
+    display:inline;;
+}
+#weather
+{
+    display : grid;
+    max-width: 250px;
+    margin:auto;
+    margin-top: 150px;
+    background-color: white;
+    border-radius: 10px;
+    padding : 10px;
+}
+/* 2b2b74 */
+*.div
+{
+    margin:auto;
+}
+
+#weather
+{
+    line-height: 22px;
+    color : #2B2B74;
+}
+
+.container {
+    border: 1px solid rgba(255,255,255,0.3);
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    right: 15px;
+    bottom: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    pointer-events: none;
+  }
+  
+  .full-size {
+    flex-shrink: 0;
+    flex-grow: 0;
+    height: 100%;
+    display: none;
+  }
+  .full-size.active {
+    display: block;
+  }
+  .thumbnail.active {
+    visibility: hidden;
+  }
+  .thumbnail, .thumbnail.flipping {
+    visibility: visible;
+  }
