@@ -7,34 +7,43 @@
         <meta charset="utf-8">
     </head>
     <body>
-    <section id="weather">
-    <section id="searchBar">
-    <img src="images/location.png">
-    <input type="text" onkeydown="handleKeyPress(event)">
-    </section>
-    <section>
-        <section id="temp">
-        <div>Température : </div>
-        <div>Météo : </div>
-        </section>
-        <section id="humidity">
-        <div>Humidité : </div>
-        </section>
-        <section id="windSpeed">
-        <div>Vitesse du vent : </div>
-        </section>
-
-    <img class="thumbnail" data-flip-id="img" src="https://placehold.co/200x200">
-
+    
     <div class="container">
-    <img class="full-size" data-flip-id="img"  src="https://placehold.co/600x600">
+        <div class="searchBar">
+            <img src="images/marker.png">
+            <input type="text" placeholder="Ville ou Pays" onkeydown="handleKeyPress(event)">
+        </div>
+
+        <div class="notFound">
+            <p>Une erreur est survenue</p>
+            <img src="images/error404.png">
+        </div>
+
+        <div class="weatherBox">
+            <img src ="">
+            <p class="temperature"></p>
+            <p class="description"></p>
+        </div>
+
+        <div class="weatherDetails">
+            <div class="humidity">
+                <img src ="images/humidity.png">
+                <div class="text">
+                <span></span>
+                <p>Humidité</p>
+            </div>
+            </div>
+            <div class="windSpeed">
+                <img src ="images/wind.png">
+                <div class="text">
+                <span></span>
+                <p>Vitesse du vent</p>
+            </div>
+            </div>
+        </div>
+
     </div>
 
-
-    </section>
-</section>
     </body>
     <script src="script/script.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/Flip.min.js"></script>
 </html>

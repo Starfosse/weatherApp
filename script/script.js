@@ -1,69 +1,81 @@
-// const url = "https://api.openweathermap.org/data/2.5/weather?&lang=fr&appid=bdd659a388d07eba71c5da7d5459d42d&units=metric&q=";
-// let fetchResponse = null;
+const url = "https://api.openweathermap.org/data/2.5/weather?&lang=fr&appid=bdd659a388d07eba71c5da7d5459d42d&units=metric&q=";
+let fetchResponse = null;
 
-// async function handleKeyPress(event) {
-//     if (event.key === 'Enter') {
-//         if(fetchResponse)
-//             cleanDisplay()
-//         const nameCity = event.target.value;
-//         const urlCity = url + nameCity;
-//         fetchResponse = await fetch(urlCity);
-//         const body = await fetchResponse.json();
-//         return await (displayWeather(body))
-//     }
-// }
+async function handleKeyPress(event) {
+    if (event.key === 'Enter') {
+        const nameCity = event.target.value;
+        const urlCity = url + nameCity;
+        fetchResponse = await fetch(urlCity);
+        const body = await fetchResponse.json();
+        if(body.cod === "404")
+            return(displayError());
+        return (displayWeather(body))
+    }
+}
 
-// function displayWeather(body)
-// {
-//     const {wind} = body;
-//     const {main} = body;
-//     const {weather} = body;
-//     const temperature = document.querySelector("#temp");
-//     const humidity = document.querySelector("#humidity").firstElementChild;
-//     const windSpeed = document.querySelector("#windSpeed").firstElementChild;
-//     temperature.children[0].textContent += main.temp +" °C";
-//     humidity.textContent += main.humidity +"%";
-//     windSpeed.textContent += wind.speed + "Km/h";
-//     let test = weather[0].description;
-//     temperature.children[1].textContent += test.charAt(0).toUpperCase() + test.slice(1);
-// }
+function displayError()
+{
+    const container = document.querySelector(".container");
+    const weatherBox = document.querySelector(".weatherBox");
+    const weatherDetails = document.querySelector(".weatherDetails");
+    container.classList.add("animation");
+    const notFound = document.querySelector(".notFound");
+    container.style.height = '400px';
+    weatherBox.style.display = 'none';
+    weatherDetails.style.display = 'none';
+    notFound.style.display = "block";
+}
 
-// function cleanDisplay()
-// {
-//     const temperature = document.querySelector("#temp");
-//     const humidity = document.querySelector("#humidity").firstElementChild;
-//     const windSpeed = document.querySelector("#windSpeed").firstElementChild;
-//     temperature.children[0].textContent = "Température : ";
-//     humidity.textContent = "Humidité : ";
-//     windSpeed.textContent = "Vitesse du vent : ";
-//     temperature.children[1].textContent = "Météo : ";
-// }
+function displayWeather(body)
+{
+    const {wind} = body;
+    const {main} = body;
+    const {weather} = body;
+    const temperature = document.querySelector(".weatherBox");
+    const weatherDetails = document.querySelector(".weatherDetails");
+    const humidity = document.querySelector(".humidity span");
+    const windSpeed = document.querySelector(".windSpeed span");
+    const container = document.querySelector(".container");
+    temperature.style.display = "block";
+    weatherDetails.style.display = "flex";
+    container.style.height = "560px";
+    temperature.children[1].textContent = Math.round(main.temp) +" °C";
+    temperature.children[2].textContent = weather[0].description.charAt(0).toUpperCase() + weather[0].description.slice(1);
+    humidity.textContent = main.humidity + "%";
+    windSpeed.textContent = wind.speed + "Km/h";
+    displayMeteo(weather[0].description);
+}
 
+function displayMeteo(desc)
+{
+    const notFound = document.querySelector(".notFound");
+    notFound.style.display = "none";
+    notFound.classList.remove("animation");
+    const container = document.querySelector(".container");
+    container.classList.add("animation");
+    let image = document.querySelector('.weatherBox img');
+    switch (desc) {
+        case "ciel dégagé":
+            image.src = "images/clear.png";
+            break;
+        case "peu nuageux":
+            image.src = "images/clear.png";
+            break;
+        case 'légère pluie':
+            image.src = 'images/rain.png';
+            break;
+        case 'neige':
+            image.src = 'images/snow.png';
+            break;
+        case 'nuageux':
+            image.src = 'images/cloud.png';
+            break;
+        case 'couvert':
+            image.src = 'images/cloud.png';
+            break;
+        case 'partiellement nuageux':
+            image.src = 'images/haze.png';
+            break;
+    }
+}
 
-gsap.registerPlugin(Flip);
-
-const fullSize = document.querySelector(".full-size"),
-      thumbnail = document.querySelector(".thumbnail");
-
-
-document.addEventListener("click", () => {
-  const state = Flip.getState(".thumbnail, .full-size");
-
-  fullSize.classList.toggle("active");
-  thumbnail.classList.toggle("active");
-
-  Flip.from(state, {
-    duration: 0.6,
-    fade: true,
-    absolute: true,
-    toggleClass: "flipping",
-    ease: "power1.inOut"
-  });
-  
-});
-
-// pq ça marche pas ? ->
-// console.log(weather[0].icon);
-// const img = document.createElement("img");
-// img.src = weather[0].icon;
-// temperature.appendChild(img);
